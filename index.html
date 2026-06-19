@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script defer src="script.js"></script>
+    </head>
+    <body>
+        <div id="input-container">
+            <input id="todo-name" type="text" />
+            <button id="submit-btn">submit</button>
+        </div>
+
+        <div id="todo-list-container" style="display: flex">
+            <!-- left side, the pending tasks -->
+            <div id="pending-tasks-container" style="display: grid">
+                <h1>Pending Tasks</h1>
+                <div id="pending-list"></div>
+            </div>
+            
+            <!-- right side, the completed tasks -->
+            <div id="completed-tasks-container" style="display: grid">
+                <h1>Completed Tasks</h1>
+                <div id="completed-list"></div>
+            </div>
+        </div>
+    </body>
+</html>
