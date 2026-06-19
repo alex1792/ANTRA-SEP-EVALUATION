@@ -149,7 +149,7 @@ let todos = [];
 
 function createPendingRow(todo) {
     const row = document.createElement("div");
-    row.style.display = 'flex';
+    row.className = "todo-row";
     row.dataset.id = todo.id;
 
     row.innerHTML = `
@@ -164,7 +164,7 @@ function createPendingRow(todo) {
 
 function createCompletedRow(todo) {
     const row = document.createElement("div");
-    row.style.display = 'flex';
+    row.className = "todo-row";
     row.dataset.id = todo.id;
 
     row.innerHTML = `
@@ -176,7 +176,6 @@ function createCompletedRow(todo) {
 
     return row;
 }
-
 
 function render() {
     // initialize the todo list

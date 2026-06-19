@@ -1,0 +1,42 @@
+#input-container {
+    display: flex;
+    gap: 10px;
+}
+#todo-list-container {
+    display: flex;
+    gap: 20px;
+}
+
+#pending-tasks-container {
+    display: grid;
+}
+
+#completed-tasks-container {
+    display: grid;
+}
+
+#submit-btn {
+    background-color: rgb(24, 163, 255);
+}
+
+.todo-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.edit-btn {
+    background-color: rgb(24, 163, 255);
+}
+
+.delete-btn {
+    background-color: rgb(255, 98, 90);
+}
+
+.task-done-btn {
+    background-color: rgb(105, 255, 105);
+}
+
+.task-undone-btn {
+    background-color: rgb(105, 255, 105);
+}
