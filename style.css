@@ -7,13 +7,13 @@
     gap: 20px;
 }
 
-#pending-tasks-container {
+/* #pending-tasks-container {
     display: grid;
-}
+} */
 
-#completed-tasks-container {
+/* #completed-tasks-container {
     display: grid;
-}
+} */
 
 #submit-btn {
     background-color: rgb(24, 163, 255);
