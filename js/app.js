@@ -4,6 +4,7 @@ async function submitTask(text) {
         const responseData = await addTodo(text);
         console.log('Success', responseData);
         todos.push(responseData);
+        persistTodos();
         render(todos);
     } catch (error) {
         console.error("Error sending POST segment: ", error);
@@ -45,6 +46,8 @@ async function deleteTask(id) {
     // update the todos list, no matter the response is success or not
     todos = todos.filter(t => t.id !== id);
 
+    persistTodos();
+
     render(todos);
 }
 
@@ -62,6 +65,8 @@ async function finishTask(id) {
         todos[idx] = {...todos[idx], completed: true};
     }
 
+    persistTodos();
+
     render(todos);
 }
 
@@ -78,6 +83,8 @@ async function undoneTask(id) {
     } else {
         todos[idx] = {...todos[idx], completed: false};
     }
+
+    persistTodos();
 
     render(todos);
 }
@@ -100,13 +107,29 @@ async function saveTaskTitle(id, newTitle) {
         todos[idx] = {...todos[idx], todo: newTitle};
     }
 
+    persistTodos();
+    
     render(todos);
 }
 
 async function initializeTodos() {
+    // load from local storage, the function will return the cached todos
+    // if the cached todos are not expired
+    const cachedTodos = loadTodosFromLocalStorage();
+    if (cachedTodos) {
+        console.log('Initialized:Loaded from local storage');
+        setTodos(cachedTodos);
+        render(todos);
+        return;
+    }
+    
+    
     const data = await fetchTodos();
-    // console.log(todos);
+    localStorage.setItem('todos', JSON.stringify(data.todos));
+    
+    // update todos --> write to local storage --> render
     setTodos(data.todos);
+    persistTodos();
     render(todos);
 }
 
