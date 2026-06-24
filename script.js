@@ -31,7 +31,7 @@ async function submitTask(text) {
 
         todos.push(responseData);
 
-        render();
+        render(todos);
     } catch (error) {
         console.error("Error sending POST segment: ", error);
     }
@@ -74,7 +74,7 @@ async function deleteTask(id) {
     // update the todos list, no matter the response is success or not
     todos = todos.filter(t => t.id !== id);
 
-    render();
+    render(todos);
 }
 
 async function finishTask(id) {
@@ -95,7 +95,7 @@ async function finishTask(id) {
         todos[idx] = {...todos[idx], completed: true};
     }
 
-    render();
+    render(todos);
 }
 
 async function undoneTask(id) {
@@ -116,7 +116,7 @@ async function undoneTask(id) {
         todos[idx] = {...todos[idx], completed: false};
     }
 
-    render();
+    render(todos);
 }
 
 async function saveTaskTitle(id, newTitle) {
@@ -141,7 +141,7 @@ async function saveTaskTitle(id, newTitle) {
         todos[idx] = {...todos[idx], todo: newTitle};
     }
 
-    render();
+    render(todos);
 }
 
 
@@ -177,7 +177,12 @@ function createCompletedRow(todo) {
     return row;
 }
 
-function render() {
+function searchTask(taskName) {
+    let results = todos.filter(t => t.todo === taskName);
+    return results;
+}
+
+function render(todos) {
     // initialize the todo list
     const pendingList = document.getElementById("pending-list");
     const completedList = document.getElementById("completed-list");
@@ -200,7 +205,7 @@ async function initializeTodos() {
     const data =  await fetch('https://dummyjson.com/todos').then(res => res.json());
     todos = data.todos;
     // console.log(todos);
-    render();
+    render(todos);
 }
 
 
@@ -257,4 +262,31 @@ document.getElementById('completed-list').addEventListener('click', (e) => {
     }
 })
 
+document.getElementById("search-btn").addEventListener('click', (e) => {
+    // search the task with the name user input
+    const taskName = document.getElementById("search-box").value;
+    if (taskName.length === 0) {
+        alert("Please fill in the task name");
+        return;
+    }
+    // get input
+    // call searchTask
+    let results = searchTask(taskName);
+    // use the return value to render
+    render(results);
+})
+
+document.getElementById("clear-btn").addEventListener('click', (e) => {
+    document.getElementById("search-box").value = "";
+    render(todos);
+})
+
 initializeTodos();
+
+
+// let clientA = new Client();
+// let clientB = clientA;
+// let clientC = structuredClone(clientA);
+
+// stack: clientA, clientB, clientC
+// heap: client123,          client1234
